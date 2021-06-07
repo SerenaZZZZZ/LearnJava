@@ -530,4 +530,3 @@ class Interview1 {
         System.out.println(arr1);// abc
     }
 }
-

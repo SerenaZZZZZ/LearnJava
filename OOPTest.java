@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  *
  * @Description
@@ -227,7 +229,7 @@ class AnimalTest {
     public static void main(String[] args) {
         Animal a = new Animal();
         a.setLegs(-6);
-        System.out.println(a.getLegs());//0
+        System.out.println(a.getLegs());// 0
     }
 }
 
@@ -245,5 +247,134 @@ class Animal {
     // 对属性的获取
     public int getLegs() {
         return legs;
+    }
+}
+
+/**
+ *
+ * @Description 多态性的好处
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 6, 2021 10:46:52 AM
+ *
+ */
+class AnimalTest1 {
+    public static void main(String[] args) {
+        AnimalTest1 test = new AnimalTest1();
+        test.func(new Dog());
+        test.func(new Cat());// 不用重写多个func了
+    }
+
+    public void func(Animal1 animal) {
+        animal.eat();
+    }
+}
+
+class Animal1 {
+    public void eat() {
+        System.out.println("eat");
+    }
+}
+
+class Dog extends Animal1 {
+    @Override
+    public void eat() {
+        System.out.println("dog eat bones");
+    }
+}
+
+class Cat extends Animal1 {
+    @Override
+    public void eat() {
+        System.out.println("cat eat fish");
+    }
+}
+
+/**
+ *
+ * @Description 多态+强转小练习
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 6, 2021 2:25:56 PM
+ *
+ */
+class FieldMathodTest {
+    public static void main(String[] args) {
+        Sub sub = new Sub();
+        System.out.println(sub.count);// 20
+        sub.display();// 20
+        Sup sup = sub;// 多态性
+        System.out.println(sup == sub);// true
+        System.out.println(sup.count);// 10
+        sup.display();// 20
+    }
+}
+
+class Sup {
+    int count = 10;
+
+    public void display() {
+        System.out.println(this.count);
+    }
+}
+
+class Sub extends Sup {
+    int count = 20;
+
+    @Override
+    public void display() {
+        System.out.println(this.count);
+    }
+}
+
+/**
+ *
+ * @Description 多态性是运行时行为的证明
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 6, 2021 2:47:37 PM
+ *
+ */
+class AnimalTest2 {
+    public static void main(String[] args) {
+        int key = new Random().nextInt(3);
+        System.out.println(key);
+        Animal2 animal = getInstance(key);
+        animal.eat();
+    }
+
+    public static Animal2 getInstance(int key) {
+        switch (key) {
+            case 0:
+                return new Cat2();
+            case 1:
+                return new Dog2();
+            default:
+                return new Sheep2();
+        }
+    }
+}
+
+class Animal2 {
+    protected void eat() {
+        System.out.println("animal eat food");
+    }
+}
+
+class Cat2 extends Animal2 {
+    protected void eat() {
+        System.out.println("cat eat fish");
+    }
+}
+
+class Dog2 extends Animal2 {
+    protected void eat() {
+        System.out.println("dog eat bone");
+    }
+}
+
+class Sheep2 extends Animal2 {
+    protected void eat() {
+        System.out.println("sheep eat grass");
     }
 }
