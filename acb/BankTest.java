@@ -1,5 +1,6 @@
-
 package acb;
+
+import org.junit.Test;
 
 /**
  *
@@ -10,7 +11,9 @@ package acb;
  *
  */
 public class BankTest {
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
+    @Test
+    public void testBank() {
         Bank bank = new Bank();
         bank.addCustomer("Serena", "Zhang");
         bank.getCustomers(0).setAccount(new Account(2000));

@@ -530,3 +530,30 @@ class Interview1 {
         System.out.println(arr1);// abc
     }
 }
+
+/**
+ *
+ * @Description Singleton
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 8, 2021 11:28:03 AM
+ *
+ */
+class SingletonTest1 {
+    public static void main(String[] args) {
+        Bank bank1 = Bank.getInstance();
+        Bank bank2 = Bank.getInstance();
+        // bank1 == bank2
+    }
+}
+
+class Bank {
+    private Bank() {
+    }
+
+    private static Bank instance = new Bank();
+
+    public static Bank getInstance() {
+        return instance;
+    }
+}
