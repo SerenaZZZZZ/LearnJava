@@ -547,6 +547,7 @@ class SingletonTest1 {
     }
 }
 
+// 饿汉式
 class Bank {
     private Bank() {
     }
@@ -554,6 +555,21 @@ class Bank {
     private static Bank instance = new Bank();
 
     public static Bank getInstance() {
+        return instance;
+    }
+}
+
+// 懒汉式
+class Bank1 {
+    private Bank1() {
+    }
+
+    private static Bank1 instance = null;
+
+    public static Bank1 getInstance() {
+        if (instance == null) {
+            instance = new Bank1();
+        }
         return instance;
     }
 }
