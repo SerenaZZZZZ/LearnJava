@@ -573,3 +573,66 @@ class Bank1 {
         return instance;
     }
 }
+
+/**
+ *
+ * @Description 接口测试
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 10, 2021 4:27:57 PM
+ *
+ */
+class InterfaceTest {
+    public static void main(String[] args) {
+        System.out.println(Flyable.MAX_SPEED);
+        System.out.println(Flyable.MIN_SPEED);
+        Plane plane = new Plane();
+        plane.fly();
+    }
+}
+
+interface Flyable {
+    // 全局常量
+    public static final int MAX_SPEED = 7900;
+    int MIN_SPEED = 1;// 省略了public static final
+
+    // 抽象方法
+    public abstract void fly();
+
+    void stop();// 省略了public abstract
+
+    // no constructors in interface
+}
+
+interface Attackable {
+    void attack();
+}
+
+class Plane implements Flyable {
+
+    @Override
+    public void fly() {
+        System.out.println("通过引擎起飞");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("驾驶员减速停止");
+    }
+}
+
+class Bullet extends Object implements Flyable, Attackable {
+
+    @Override
+    public void fly() {
+    }
+
+    @Override
+    public void stop() {
+    }
+
+    @Override
+    public void attack() {
+    }
+
+}
