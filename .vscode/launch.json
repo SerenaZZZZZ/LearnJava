@@ -1,0 +1,280 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch AnimalTest",
+            "request": "launch",
+            "mainClass": "AnimalTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch AnimalTest1",
+            "request": "launch",
+            "mainClass": "AnimalTest1",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch AnimalTest2",
+            "request": "launch",
+            "mainClass": "AnimalTest2",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch AriTest",
+            "request": "launch",
+            "mainClass": "AriTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayExer",
+            "request": "launch",
+            "mainClass": "ArrayExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArraysTest",
+            "request": "launch",
+            "mainClass": "ArraysTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch BizBaz",
+            "request": "launch",
+            "mainClass": "BizBaz",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch BubbleSort",
+            "request": "launch",
+            "mainClass": "BubbleSort",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch DiffRandomGenerator",
+            "request": "launch",
+            "mainClass": "DiffRandomGenerator",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch DiffRandomGeneratorBetter",
+            "request": "launch",
+            "mainClass": "DiffRandomGeneratorBetter",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch DoWhile",
+            "request": "launch",
+            "mainClass": "DoWhile",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch DogAge",
+            "request": "launch",
+            "mainClass": "DogAge",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch EqualsTest",
+            "request": "launch",
+            "mainClass": "EqualsTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch FieldMathodTest",
+            "request": "launch",
+            "mainClass": "FieldMathodTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch GCDLCM",
+            "request": "launch",
+            "mainClass": "GCDLCM",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch HelloChina",
+            "request": "launch",
+            "mainClass": "HelloChina",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch HuiXingShu",
+            "request": "launch",
+            "mainClass": "HuiXingShu",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch HuiXingShuBetter",
+            "request": "launch",
+            "mainClass": "HuiXingShuBetter",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch InterfaceTest",
+            "request": "launch",
+            "mainClass": "InterfaceTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch Interview0",
+            "request": "launch",
+            "mainClass": "Interview0",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch Interview1",
+            "request": "launch",
+            "mainClass": "Interview1",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch MultipleVarTest",
+            "request": "launch",
+            "mainClass": "MultipleVarTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch OOPTest",
+            "request": "launch",
+            "mainClass": "OOPTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch Phonetest",
+            "request": "launch",
+            "mainClass": "Phonetest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch PrimeNumber",
+            "request": "launch",
+            "mainClass": "PrimeNumber",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch QuickSort",
+            "request": "launch",
+            "mainClass": "QuickSort",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch RecersionTest",
+            "request": "launch",
+            "mainClass": "RecersionTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ScannerTest",
+            "request": "launch",
+            "mainClass": "ScannerTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ShenQi",
+            "request": "launch",
+            "mainClass": "ShenQi",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch SingletonTest1",
+            "request": "launch",
+            "mainClass": "SingletonTest1",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch StudentTest",
+            "request": "launch",
+            "mainClass": "StudentTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch WrapperExer",
+            "request": "launch",
+            "mainClass": "WrapperExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch YangHuiTriangle",
+            "request": "launch",
+            "mainClass": "YangHuiTriangle",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch YearDay",
+            "request": "launch",
+            "mainClass": "YearDay",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ErrorTest",
+            "request": "launch",
+            "mainClass": "exception.ErrorTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch Test",
+            "request": "launch",
+            "mainClass": "payrollsystem.Test",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch FamilyAccount",
+            "request": "launch",
+            "mainClass": "project01.FamilyAccount",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch CustomerView",
+            "request": "launch",
+            "mainClass": "project02.CustomerView",
+            "projectName": "LearnJava_7e0043f1"
+        }
+    ]
+}
