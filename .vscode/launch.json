@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch EcmDef",
+            "request": "launch",
+            "mainClass": "exception.EcmDef",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThrowTest",
+            "request": "launch",
+            "mainClass": "exception.ThrowTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
