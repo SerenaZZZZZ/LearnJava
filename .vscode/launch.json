@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TeamView",
+            "request": "launch",
+            "mainClass": "project03.view.TeamView",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch NameListService",
+            "request": "launch",
+            "mainClass": "project03.service.NameListService",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch EcmDef",
             "request": "launch",
             "mainClass": "exception.EcmDef",
