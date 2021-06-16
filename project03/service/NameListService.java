@@ -1,12 +1,7 @@
 package project03.service;
 
-import project03.domain.Employee;
-import project03.domain.Programmer;
-import project03.domain.Designer;
-import project03.domain.Architect;
-import project03.domain.PC;
-import project03.domain.NoteBook;
-import project03.domain.Printer;
+import project03.domain.*;
+import static project03.service.Data.*;
 
 /**
  *
@@ -20,48 +15,57 @@ public class NameListService {
     private Employee[] employees;
 
     public NameListService() {
-        employees = new Employee[Data.EMPLOYEES.length];
-        for (int i = 0; i < Data.EMPLOYEES.length; i++) {
-            String[] employee = Data.EMPLOYEES[i];
-            String[] equipment = Data.EQUIPMENTS[i];
-            employees[i] = new Employee();
+        // employees = new Employee[Data.EMPLOYEES.length];
+        employees = new Employee[EMPLOYEES.length];// import Data里的所有static之后就可以这样写了
+        for (int i = 0; i < EMPLOYEES.length; i++) {
+            String[] employee = EMPLOYEES[i];
+            String[] equipment = EQUIPMENTS[i];
             int j = 0;
-            switch (employee[j]) {
-                case "10":
-                    employees[i] = new Employee();
+            int type = Integer.parseInt(employee[j]);
+            int id = Integer.parseInt(employee[++j]);
+            String name = employee[++j];
+            int age = Integer.parseInt(employee[++j]);
+            double salary = Double.parseDouble(employee[++j]);
+            double bonus;
+            switch (type) {
+                case EMPLOYEE: // 写 "10"的话不好改
+                    employees[i] = new Employee(id, name, age, salary);
                     break;
-                case "11":
-                    employees[i] = new Programmer();
+                case PROGRAMMER:
+                    employees[i] = new Programmer(id, name, age, salary, null);
                     break;
-                case "12":
-                    employees[i] = new Designer();
+                case DESIGNER:
+                    bonus = Double.parseDouble(employee[++j]);
+                    employees[i] = new Designer(id, name, age, salary, null, bonus);
                     break;
-                case "13":
-                    employees[i] = new Architect();
+                case ARCHITECT:
+                    bonus = Double.parseDouble(employee[++j]); 
+                    int stock = Integer.parseInt(employee[++j]);
+                    employees[i] = new Architect(id, name, age, salary, null, bonus, stock);
                     break;
             }
-            employees[i].setId(Integer.parseInt(employee[++j]));
-            employees[i].setName(employee[++j]);
-            employees[i].setAge(Integer.parseInt(employee[++j]));
-            employees[i].setSalary(Double.parseDouble(employee[++j]));
+            // employees[i].setId(Integer.parseInt(employee[++j]));
+            // employees[i].setName(employee[++j]);
+            // employees[i].setAge(Integer.parseInt(employee[++j]));
+            // employees[i].setSalary(Double.parseDouble(employee[++j]));
             if (equipment.length > 0 && employees[i] instanceof Programmer) {
-                switch (equipment[0]) {
-                    case "21":
+                switch (Integer.parseInt(equipment[0])) {
+                    case PC: // case "21":
                         ((Programmer) employees[i]).setEquipment(new PC(equipment[1], equipment[2]));
                         break;
-                    case "22":
+                    case NOTEBOOK:
                         ((Programmer) employees[i])
                                 .setEquipment(new NoteBook(equipment[1], Double.parseDouble(equipment[2])));
                         break;
-                    case "23":
+                    case PRINTER:
                         ((Programmer) employees[i]).setEquipment(new Printer(equipment[1], equipment[2]));
                         break;
                 }
             }
-            if (employees[i] instanceof Designer)
-                ((Designer) employees[i]).setBonus(Double.parseDouble(employee[++j]));
-            if (employees[i] instanceof Architect)
-                ((Architect) employees[i]).setStock(Integer.parseInt(employee[++j]));
+            // if (employees[i] instanceof Designer)
+            // ((Designer) employees[i]).setBonus(Double.parseDouble(employee[++j]));
+            // if (employees[i] instanceof Architect)
+            // ((Architect) employees[i]).setStock(Integer.parseInt(employee[++j]));
         }
     };
 

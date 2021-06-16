@@ -26,13 +26,14 @@ public class TeamView {
     }
 
     public void enterMainMenu() {
+        char menu = 0;
         do {
-            System.out.println("------------------------------------开发团队调度软件-------------------------------------\n");
-            listAllEmployees();
+            if (menu != '1')// 新增 若看了团队列表就直接显示菜单栏
+                listAllEmployees();
             System.out.println(
                     "-----------------------------------------------------------------------------------------");
             System.out.print("1-团队列表  2-添加团队成员  3-删除团队成员  4-退出  请选择(1-4): ");
-            switch (TSUtility.readMenuSelection()) {
+            switch (menu = TSUtility.readMenuSelection()) {
                 case '1':
                     getTeam();
                     break;
@@ -54,16 +55,21 @@ public class TeamView {
     }
 
     private void listAllEmployees() {
+        System.out.println("------------------------------------开发团队调度软件-------------------------------------\n");
         System.out.println("ID\t姓名\t年龄\t工资\t职位\t状态\t奖金\t股票\t领用设备");
         Employee[] employees = listSvc.getAllEmployees();
-        for (int i = 0; i < employees.length; i++) {
-            System.out.println(employees[i].toString());
+        if (employees == null || employees.length == 0) // 新增判断 严谨
+            System.out.println("公司无员工");
+        else {
+            for (int i = 0; i < employees.length; i++) {
+                System.out.println(employees[i].toString());
+            }
         }
     }
 
     private void getTeam() {
         System.out.println("\n--------------------团队成员列表---------------------");
-        System.out.println("TDI/ID\t姓名\t年龄\t工资\t职位\t奖金\t股票");
+        System.out.println("TID/ID\t姓名\t年龄\t工资\t职位\t奖金\t股票");
         Programmer[] team = teamSvc.getTeam();
         if (teamSvc.getTotal() == 0) {
             System.out.println("The team is empty.");
@@ -90,29 +96,27 @@ public class TeamView {
             Employee e = listSvc.getEmployee(id);
             teamSvc.addMember(e);
             System.out.println("添加成功");
-            TSUtility.readReturn();
+            // TSUtility.readReturn();
         } catch (TeamException e) {
             System.out.println("添加失败，原因：" + e.getMessage());
-            TSUtility.readReturn();
         }
+        TSUtility.readReturn();
     }
 
     private void deleteMember() {
         System.out.println("---------------------删除成员---------------------");
         System.out.print("请输入要删除的员工TID: ");
         int memberId = TSUtility.readInt();
+        System.out.print("确认是否删除（Y/N）：");
+        char yn = TSUtility.readConfirmSelection();
+        if (yn == 'N')
+            return;
         try {
             teamSvc.removeMember(memberId);
-            System.out.print("确认是否删除（Y/N）：");
-            char yn = TSUtility.readConfirmSelection();
-            if (yn == 'Y')
-                System.out.println("删除成功");
-            else
-                return;
-            TSUtility.readReturn();
+            System.out.println("删除成功");
         } catch (TeamException e) {
             System.out.println("删除失败，原因：" + e.getMessage());
-            TSUtility.readReturn();
         }
+        TSUtility.readReturn();
     }
 }

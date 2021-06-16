@@ -1,9 +1,6 @@
 package project03.service;
 
-import project03.domain.Architect;
-import project03.domain.Designer;
-import project03.domain.Employee;
-import project03.domain.Programmer;
+import project03.domain.*;
 
 /**
  *
@@ -45,7 +42,7 @@ public class TeamService {
                 }
                 throw new TeamException("This emplyee is already in another team.");
             }
-            if (((Programmer) e).getStatus() == Status.VOCATION)
+            if (((Programmer) e).getStatus() == Status.VACATION)
                 throw new TeamException("This emplyee is on vocation now.");
             if (e instanceof Architect) {
                 if (architects == 1)
@@ -90,7 +87,8 @@ public class TeamService {
                 for (int j = i + 1; j < total; j++) {
                     team[j - 1] = team[j];
                 }
-                team[total--] = null;
+                // team[total--] = null;
+                team[--total] = null; // 写错了竟然！
                 return;
             }
         }

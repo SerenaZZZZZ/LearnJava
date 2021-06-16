@@ -16,7 +16,7 @@ public class Status {
     }
 
     public static final Status FREE = new Status("FREE");
-    public static final Status VOCATION = new Status("VOCATION");
+    public static final Status VACATION = new Status("VACATION");
     public static final Status BUSY = new Status("BUSY");
 
     public String getNAME() {

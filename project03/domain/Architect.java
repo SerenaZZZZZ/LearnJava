@@ -15,12 +15,7 @@ public class Architect extends Designer {
     }
 
     public Architect(int id, String name, int age, double salary, Equipment equipment, double bonus, int stock) {
-        super.setId(id);
-        super.setName(name);
-        super.setAge(age);
-        super.setSalary(salary);
-        super.setEquipment(equipment);
-        super.setBonus(bonus);
+        super(id, name, age, salary, equipment, bonus);
         this.stock = stock;
     }
 

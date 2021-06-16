@@ -9,5 +9,6 @@ package project03.domain;
  *
  */
 public interface Equipment {
-    public abstract String getDescription();
+    // public abstract String getDescription();// 可以省略前面的
+    String getDescription(); 
 }

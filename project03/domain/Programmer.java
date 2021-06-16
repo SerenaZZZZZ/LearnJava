@@ -19,16 +19,13 @@ public class Programmer extends Employee {
     }
 
     public Programmer(int id, String name, int age, double salary, Equipment equipment) {
-        super.setId(id);
-        super.setName(name);
-        super.setAge(age);
-        super.setSalary(salary);
+        super(id, name, age, salary);
         this.equipment = equipment;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "\t程序员\t" + getStatus().toString() + "\t\t\t" + getEquipment().getDescription();
+        return super.toString() + "\t程序员\t" + status.toString() + "\t\t\t" + equipment.getDescription();
     }
 
     public String getPosition(){

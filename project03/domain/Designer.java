@@ -15,11 +15,12 @@ public class Designer extends Programmer {
     }
 
     public Designer(int id, String name, int age, double salary, Equipment equipment, double bonus) {
-        super.setId(id);
-        super.setName(name);
-        super.setAge(age);
-        super.setSalary(salary);
-        super.setEquipment(equipment);
+        // super.setId(id);
+        // super.setName(name);
+        // super.setAge(age);
+        // super.setSalary(salary);
+        // super.setEquipment(equipment); // 不是 你这也太菜了吧？？？
+        super(id, name, age, salary, equipment);
         this.bonus = bonus;
     }
 
