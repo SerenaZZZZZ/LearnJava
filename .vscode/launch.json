@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DeadLock",
+            "request": "launch",
+            "mainClass": "thread.DeadLock",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch WindowTest1",
             "request": "launch",
             "mainClass": "thread.WindowTest1",

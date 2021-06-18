@@ -32,13 +32,22 @@ class Window1 implements Runnable {
     @Override
     public void run() {
         while (true) {
-            synchronized(obj){
+            // synchronized (obj) {
+            synchronized (this) { // this代表对象w
                 if (ticket > 0) {
                     System.out.println(Thread.currentThread().getName() + " 卖票，票号为：" + ticket);
                     ticket--;
                 } else
-                break;
+                    break;
             }
+        }
+    }
+
+    // 方式二： 同步方法
+    private synchronized void show() { // 这里的同步监视器是this
+        if (ticket > 0) {
+            System.out.println(Thread.currentThread().getName() + " 卖票，票号为：" + ticket);
+            ticket--;
         }
     }
 }
