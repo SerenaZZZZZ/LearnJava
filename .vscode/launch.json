@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ThreadPool",
+            "request": "launch",
+            "mainClass": "thread.ThreadPool",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThreadCommunication",
+            "request": "launch",
+            "mainClass": "thread.ThreadCommunication",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThreadExer",
+            "request": "launch",
+            "mainClass": "thread.ThreadExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch WindowTest2",
+            "request": "launch",
+            "mainClass": "thread.WindowTest2",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch DeadLock",
             "request": "launch",
             "mainClass": "thread.DeadLock",
