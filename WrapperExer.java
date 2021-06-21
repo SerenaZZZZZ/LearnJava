@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.Vector;
 
-import org.junit.Test;
-
 /**
  *
  * @Description 利用Vector代替数组处理：从键盘读入成绩（负数结束），找到最高分，并输出等级
@@ -38,5 +36,6 @@ public class WrapperExer {
                 grade = 'D';
             System.out.println("student"+i+"'s score: "+score+"\tgrade: "+grade);
         }
+        scan.close();
     }
 }

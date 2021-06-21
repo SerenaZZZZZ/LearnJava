@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch StringBufferExer",
+            "request": "launch",
+            "mainClass": "StringBufferExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringExer",
+            "request": "launch",
+            "mainClass": "StringExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch reverseString",
+            "request": "launch",
+            "mainClass": "reverseString",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch sameString",
+            "request": "launch",
+            "mainClass": "sameString",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch StringTest",
+            "request": "launch",
+            "mainClass": "StringTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch ThreadPool",
             "request": "launch",
             "mainClass": "thread.ThreadPool",

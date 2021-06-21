@@ -1,5 +1,7 @@
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.Arrays;
+import java.util.Date;
 
 class ScannerTest {
     public static void main(String[] args) {
@@ -9,6 +11,7 @@ class ScannerTest {
         String hello = "hello";
         char h = hello.charAt(0);
         System.out.println(h);
+        scan.close();
     }
 }
 
@@ -23,7 +26,7 @@ class DogAge {
             System.out.println("like human age: " + (int) (age * 10.5));
         else
             System.out.println("like human age: " + (int) (2 * 10.5 + (age - 2) * 4));
-
+        scan.close();
     }
 }
 
@@ -65,6 +68,7 @@ class EqualsTest {
         String isHandsome = scan.next();
         if (isHandsome.equals("是"))
             System.out.println("冲！");
+        scan.close();
     }
 }
 
@@ -105,6 +109,7 @@ class YearDay {
                 sumDays += day;
         }
         System.out.println(sumDays);
+        scan.close();
     }
 }
 
@@ -145,6 +150,7 @@ class GCDLCM {
                 break;
             }
         }
+        scan.close();
         // 总结：写的时候没想到求最大公倍数时候i的上限 勤思考
     }
 }
@@ -164,6 +170,7 @@ class DoWhile {
                 countN++;
         } while (n != 0);
         System.out.println("正数：" + countP + "\n负数：" + countN);
+        scan.close();
         // 总结：还可以用for(;;)或者while(true)来写
     }
 }
@@ -333,6 +340,7 @@ class HuiXingShu {
             }
             System.out.println();
         }
+        scan.close();
     }
 }
 
@@ -375,6 +383,7 @@ class HuiXingShuBetter {
             }
             System.out.println();
         }
+        scan.close();
     }
 }
 
@@ -635,4 +644,205 @@ class Bullet extends Object implements Flyable, Attackable {
     public void attack() {
     }
 
+}
+
+/**
+ *
+ * @Description String面试题
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 19, 2021 10:35:49 AM
+ *
+ */
+class StringTest {
+    String str = new String("good");
+    char[] ch = { 't', 'e', 's', 't' };
+
+    public void change(String str, char ch[]) {
+        System.out.println(str == this.str);// true
+        str = "good";// 直接指常量池了
+        System.out.println(str == this.str.intern());// true
+        ch[0] = 'b';
+    }
+
+    public static void main(String[] args) {
+        StringTest ex = new StringTest();
+        ex.change(ex.str, ex.ch);
+        System.out.println(ex.str);// good
+        System.out.println(ex.ch);// best
+
+    }
+}
+
+/**
+ *
+ * @Description 一些String相关的算法题
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 20, 2021 8:00:13 PM
+ *
+ */
+class StringExer {
+    public static void main(String[] args) {
+        StringExer stringExer = new StringExer();
+        String str = "abcdefg";
+        int beginIdx = 2;
+        int endIdx = 5;
+        System.out.println(stringExer.reverse(str, beginIdx, endIdx));
+        System.out.println("***********************");
+        str = "abkkcadkabkebfkabkskab";
+        String subStr = "ab";
+        System.out.println(stringExer.appear(str, subStr));
+        System.out.println("***********************");
+        String str1 = "abcwerthelloyuiodef";
+        String str2 = "cvhellobnm";
+        System.out.println(stringExer.common(str1, str2));
+        System.out.println("***********************");
+        str1 = "abcwerthelloyuiodef";
+        str2 = "cvhellobnmiodef";
+        System.out.println(stringExer.commonMulti(str1, str2).toString());
+    }
+
+    /**
+     * "abcdefg"->"abfedcg" 15min
+     * 
+     * @param str
+     * @param beginIdx
+     * @param endIdx
+     * @return
+     */
+    public String reverse(String str, int beginIdx, int endIdx) {
+        if (str != null) {
+            // 我的方法 15min...好菜
+            // char[] part = str.substring(beginIdx, endIdx + 1).toCharArray();
+            // StringBuffer reversed = new StringBuffer(part.length);
+            // for (int i = part.length - 1; i >= 0; i--) {
+            // reversed.append(part[i]);
+            // }
+            // return (str.substring(0, beginIdx) + reversed + str.substring(endIdx + 1));
+            // 优化
+            StringBuffer result = new StringBuffer(str.length());
+            result.append(str.substring(0, beginIdx));
+            for (int i = endIdx; i >= beginIdx; i--) {
+                result.append(str.charAt(i));
+            }
+            result.append(str.substring(endIdx + 1));
+            return result.toString();
+            // 老师的方法
+            // char[] arr = str.toCharArray();
+            // for (int x = beginIdx, y = endIdx; x < y; x++, y--) {
+            // char temp = arr[x];
+            // arr[x] = arr[y];
+            // arr[y] = temp;
+            // }
+            // return new String(arr);
+        }
+        return str;
+    }
+
+    /**
+     * 获取subStr在str中出现的次数 9min
+     * 
+     * @param str
+     * @param subStr
+     * @return
+     */
+    public int appear(String str, String subStr) {
+        int fromIdx = 0;
+        int result = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if ((fromIdx = str.indexOf(subStr, i)) != -1) {
+                result++;
+                i = fromIdx;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获取str1和str2中(第一个出现的)最大相同子串 KMP/Boyer-Moore 40min
+     * 
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public String common(String str1, String str2) {
+        if (str1 == null || str2 == null)
+            return null;
+        String shorter;
+        String longer;
+        String result = null;
+        if (str1.length() > str2.length()) {
+            longer = str1;
+            shorter = str2;
+        } else {
+            longer = str2;
+            shorter = str1;
+        }
+        int num = 1;
+        for (int i = shorter.length(); i > 0; i--) {
+            for (int a = 0; a < num; a++) {
+                result = shorter.substring(a, i + a);
+                if (longer.contains(result)) {
+                    return result;
+                }
+            }
+            num++;
+        }
+        return null;
+    }
+
+    /**
+     * 获取str1和str2中所有最大相同子串
+     * 
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public Vector<String> commonMulti(String str1, String str2) {
+        if (str1 == null || str2 == null)
+            return null;
+        String shorter, longer;
+        Vector<String> v = new Vector<String>();
+        if (str1.length() > str2.length()) {
+            longer = str1;
+            shorter = str2;
+        } else {
+            longer = str2;
+            shorter = str1;
+        }
+        int num = 1;
+        for (int i = shorter.length(); i > 0; i--) {
+            for (int a = 0; a < num; a++) {
+                String temp = shorter.substring(a, i + a);
+                if (longer.contains(temp)) {
+                    v.addElement(temp);
+                }
+            }
+            if (v.size() > 0)
+                return v;
+            num++;
+        }
+        return null;
+    }
+}
+
+/**
+ *
+ * @Description StringBuffer面试题
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 10:39:52 AM
+ *
+ */
+class StringBufferExer {
+    public static void main(String[] args) {
+        String str = null;
+        StringBuffer sb = new StringBuffer();
+        sb.append(str);
+        System.out.println(sb.length());// 4
+        System.out.println(sb);// null(四个字符)
+        StringBuffer sb1 = new StringBuffer(str);// 跑异常NullPointerException
+        System.out.println(sb1);
+    }
 }
