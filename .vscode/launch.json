@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch enumTest",
+            "request": "launch",
+            "mainClass": "enumTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch formatterTest",
+            "request": "launch",
+            "mainClass": "formatterTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch instantTest",
+            "request": "launch",
+            "mainClass": "instantTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch calendarTest",
+            "request": "launch",
+            "mainClass": "calendarTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
+            "name": "Launch DateTest",
+            "request": "launch",
+            "mainClass": "DateTest",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch StringBufferExer",
             "request": "launch",
             "mainClass": "StringBufferExer",

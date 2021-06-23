@@ -12,7 +12,7 @@ import java.util.Vector;
 public class WrapperExer {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        Vector v = new Vector<Integer>();
+        Vector<Integer> v = new Vector<Integer>();
         int max = 0;
         while (scan.hasNextInt()) {
             Integer score = scan.nextInt();

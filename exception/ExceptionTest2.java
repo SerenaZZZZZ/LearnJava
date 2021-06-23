@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.junit.Test;
-
 /**
 *
 * @Description 用throws处理异常

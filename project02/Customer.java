@@ -1,7 +1,5 @@
 package project02;
 
-import java.util.Set;
-
 /**
  *
  * @Description Encapsulate customer info

@@ -1,6 +1,4 @@
 
-import java.util.Date;
-
 import org.junit.Test;
 
 /**
@@ -100,12 +98,12 @@ public class JUnitTest {
 
         Integer m = 1;
         Integer n = 1;
-        System.out.println(m == n);// true 
+        System.out.println(m == n);// true
 
         Integer x = 128;
         Integer y = 128;
         System.out.println(x == y);// flase
-        //因为1在-128到127之间 在IntegerCache里 128不在所以要new
+        // 因为1在-128到127之间 在IntegerCache里 128不在所以要new
     }
 }
 

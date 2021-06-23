@@ -1,6 +1,24 @@
 import java.util.Scanner;
 import java.util.Vector;
+import java.lang.Thread.State;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 class ScannerTest {
@@ -844,5 +862,260 @@ class StringBufferExer {
         System.out.println(sb);// null(四个字符)
         StringBuffer sb1 = new StringBuffer(str);// 跑异常NullPointerException
         System.out.println(sb1);
+    }
+}
+
+/**
+ *
+ * @Description
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 10:56:34 AM
+ *
+ */
+class DateTest {
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        // 格式化
+        Date date = new Date();
+        System.out.println(date);
+        String format = sdf.format(date);
+        System.out.println(format);
+        System.out.println();
+        // 解析
+        String str = "6/21/21, 11:04 AM";
+        Date date1 = sdf.parse(str);
+        System.out.println(date1);
+        System.out.println();
+        // 按pattern 参考SimpleDateFormat
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd h:mm a");
+        System.out.println(sdf1.format(date));
+        Date date2 = sdf1.parse("2021-06-21 11:11 AM");
+        System.out.println(date2);
+        System.out.println();
+        // 将字符串转换为java.sql.Date
+        java.sql.Date sqlDate = sqlDate("1999-01-01");
+        // 打渔？晒网？
+        System.out.println(dayuShaiwang("1990-01-01", "1990-01-06"));
+
+    }
+
+    // 将字符串转换为java.sql.Date
+    public static java.sql.Date sqlDate(String birth) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date sdfBirth = sdf.parse(birth);
+        java.sql.Date sqlBirth = new java.sql.Date(sdfBirth.getTime());
+        return sqlBirth;
+    }
+
+    // “三天打鱼两天晒网“ 1990-01-01开始 xxxx-xx-xx打渔？晒网？ 123 45 678 910
+    public static String dayuShaiwang(String start, String end) throws ParseException {
+        if (end.compareTo(start) < 0)
+            return null;
+        String result = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        long day = (sdf.parse(end).getTime() - sdf.parse(start).getTime()) / (1000 * 60 * 60 * 24) + 1;
+        if (day % 5 <= 3 && day % 5 > 0) {
+            result = "打渔";
+        } else
+            result = "晒网";
+        return result;
+        // 总结：也可以用Calendar类来做
+
+    }
+}
+
+/**
+ *
+ * @Description Calendar抽象类
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 11:57:27 AM
+ *
+ */
+class calendarTest {
+    public static void main(String[] args) {
+        // 1.实例化
+        // 方式一：创建其子类(GregorianCalendar)的对象
+        // 方式二：调其静态方法getInstance()
+        Calendar calendar = Calendar.getInstance(); // class就是GregorianCalendar
+        // 2.常用方法
+        int days = calendar.get(Calendar.DAY_OF_YEAR);
+        System.out.println(days);
+        calendar.set(Calendar.DAY_OF_YEAR, 22);
+        System.out.println(calendar.get(Calendar.DAY_OF_YEAR));
+        calendar.add(Calendar.DAY_OF_YEAR, -3);
+        System.out.println(calendar.get(Calendar.DAY_OF_YEAR));
+        // 日历类 --> Date类
+        Date date = calendar.getTime();
+        // Date类 --> 日历类
+        calendar.setTime(new Date());
+    }
+}
+
+/**
+ *
+ * @Description java.time API调用取代 calendar
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 3:18:35 PM
+ *
+ */
+class timeTest {
+    public static void main(String[] args) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+        // 设定指定年月日时分秒无偏移量 比Date方便
+        LocalDateTime localDateTime1 = LocalDateTime.of(2021, 10, 1, 13, 23, 45);
+        System.out.println(localDateTime1);
+        System.out.println(localDateTime.getDayOfYear());
+        // 体现不可变性
+        LocalDateTime localDateTime2 = localDateTime1.withDayOfYear(23);
+        System.out.println(localDateTime1);
+        System.out.println(localDateTime2);
+    }
+}
+
+/**
+ *
+ * @Description java.instant API调用取代 date
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 3:41:29 PM
+ *
+ */
+class instantTest {
+    public static void main(String[] args) {
+        Instant instant = Instant.now();// 这是本初子午线的时间
+        OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.ofHours(8));
+        long epochMilli = instant.toEpochMilli();// 从1970年1月1日开始的毫秒数
+        Instant instant1 = Instant.ofEpochMilli(epochMilli);
+        System.out.println(instant1);
+    }
+}
+
+/**
+ *
+ * @Description DateTimeFormatter API调用代替 SimpleTimeFormat
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 21, 2021 3:52:32 PM
+ *
+ */
+class formatterTest {
+    public static void main(String[] args) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        // 格式化
+        LocalDateTime now = LocalDateTime.now();
+        String str1 = formatter.format(now);
+        // 解析
+        TemporalAccessor parse = formatter.parse("2021-06-21T19:45:35.508");
+        System.out.println(parse);// {},ISO resolved to 2021-06-21T19:45:35.508
+
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+        System.out.println(formatter1.format(now));// Jun 21, 2021
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        System.out.println(formatter2.format(now));// 2021-06-21 11:51:41
+        System.out.println(formatter2.parse("2021-06-21 11:51:41"));// {HourOfAmPm=11, NanoOfSecond=0,
+                                                                    // SecondOfMinute=41, MicroOfSecond=0,
+                                                                    // MilliOfSecond=0, MinuteOfHour=51},ISO resolved to
+                                                                    // 2021-06-21
+    }
+}
+
+/**
+ *
+ * @Description 枚举类举例
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 22, 2021 3:09:12 PM
+ *
+ */
+class enumTest {
+    public static void main(String[] args) {
+        System.out.println(Season1.AUTUMN);// 打印的是重写过的toString
+        System.out.println(Season.AUTUMN);// AUTUMN 打印的是enum自己重写的toString->对象名
+        @SuppressWarnings("unused") //注解的用法
+        Season[] seasons = Season.values();// 得到四个对象名
+        State[] states = Thread.State.values();
+        for (State state : states) {
+            System.out.println(state);
+        }
+        Season winter = Season.valueOf("WINTER");// 通过字符串得到枚举对象
+        System.out.println(winter);
+    }
+}
+interface Info{
+    void show();
+}
+enum Season implements Info {
+    SPRING("Spring", "春"){
+        @Override
+        public void show() {
+            
+        }
+    }, SUMMER("Summer", "夏"){
+        @Override
+        public void show() {
+            
+        }
+    }, AUTUMN("Autumn", "秋"){
+        @Override
+        public void show() {
+            
+        }
+    }, WINTER("Winter", "冬"){
+        @Override
+        public void show() {
+            
+        }
+    };
+
+    private final String SeasonName;
+    private final String SeasonDesc;
+
+    private Season(String SeasonName, String SeasonDesc) {
+        this.SeasonName = SeasonName;
+        this.SeasonDesc = SeasonDesc;
+    }
+
+    public String getSeasonName() {
+        return this.SeasonName;
+    }
+
+    public String getSeasonDesc() {
+        return this.SeasonDesc;
+    }
+
+}
+
+class Season1 {// 自定义枚举类
+    private final String SeasonName;
+    private final String SeasonDesc;
+
+    private Season1(String SeasonName, String SeasonDesc) {
+        this.SeasonName = SeasonName;
+        this.SeasonDesc = SeasonDesc;
+    }
+
+    public static final Season1 SPRING = new Season1("Spring", "春");
+
+    public static final Season1 SUMMER = new Season1("Summer", "夏");
+
+    public static final Season1 AUTUMN = new Season1("Autumn", "秋");
+
+    public static final Season1 WINTER = new Season1("Winter", "冬");
+
+    public String getSeasonName() {
+        return this.SeasonName;
+    }
+
+    public String getSeasonDesc() {
+        return this.SeasonDesc;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " SeasonName='" + getSeasonName() + "'" + ", SeasonDesc='" + getSeasonDesc() + "'" + "}";
     }
 }
