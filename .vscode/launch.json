@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TreeSetExer",
+            "request": "launch",
+            "mainClass": "TreeSetExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch enumTest",
             "request": "launch",
             "mainClass": "enumTest",

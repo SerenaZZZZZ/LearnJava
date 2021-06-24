@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.TreeSet;
 import java.util.Vector;
 import java.lang.Thread.State;
 import java.lang.annotation.ElementType;
@@ -19,6 +20,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 
 class ScannerTest {
@@ -1035,7 +1037,7 @@ class enumTest {
     public static void main(String[] args) {
         System.out.println(Season1.AUTUMN);// 打印的是重写过的toString
         System.out.println(Season.AUTUMN);// AUTUMN 打印的是enum自己重写的toString->对象名
-        @SuppressWarnings("unused") //注解的用法
+        @SuppressWarnings("unused") // 注解的用法
         Season[] seasons = Season.values();// 得到四个对象名
         State[] states = Thread.State.values();
         for (State state : states) {
@@ -1045,29 +1047,34 @@ class enumTest {
         System.out.println(winter);
     }
 }
-interface Info{
+
+interface Info {
     void show();
 }
+
 enum Season implements Info {
-    SPRING("Spring", "春"){
+    SPRING("Spring", "春") {
         @Override
         public void show() {
-            
+
         }
-    }, SUMMER("Summer", "夏"){
+    },
+    SUMMER("Summer", "夏") {
         @Override
         public void show() {
-            
+
         }
-    }, AUTUMN("Autumn", "秋"){
+    },
+    AUTUMN("Autumn", "秋") {
         @Override
         public void show() {
-            
+
         }
-    }, WINTER("Winter", "冬"){
+    },
+    WINTER("Winter", "冬") {
         @Override
         public void show() {
-            
+
         }
     };
 
@@ -1117,5 +1124,155 @@ class Season1 {// 自定义枚举类
     @Override
     public String toString() {
         return "{" + " SeasonName='" + getSeasonName() + "'" + ", SeasonDesc='" + getSeasonDesc() + "'" + "}";
+    }
+}
+
+/**
+ *
+ * @Description TreeSet小练习
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 23, 2021 3:48:57 PM
+ *
+ */
+class TreeSetExer {
+    public static void main(String[] args) {
+        Comparator<Employee> comparator = new Comparator<Employee>() {
+
+            @Override
+            public int compare(Employee o1, Employee o2) {
+                MyDate b1 = o1.getBirthday();
+                MyDate b2 = o2.getBirthday();
+                int compBir = b1.compareTo(b2);
+                if (compBir != 0)
+                    return compBir;
+                else
+                    return o1.compareTo(o2);
+            }
+
+        };
+        // TreeSet<Employee> treeSet = new TreeSet<>(); // 用Emplyee.compareTo()排序
+        TreeSet<Employee> treeSet = new TreeSet<>(comparator);// 用comparator.compare()排序
+        treeSet.add(new Employee("Jack", 22, new MyDate(1999, 1, 8)));
+        treeSet.add(new Employee("Amy", 25, new MyDate(1989, 2, 8)));
+        treeSet.add(new Employee("Serena", 22, new MyDate(1999, 1, 8)));
+        treeSet.add(new Employee("Tom", 20, new MyDate(2019, 4, 4)));
+        treeSet.add(new Employee("Amilia", 24, new MyDate(1949, 2, 1)));
+        treeSet.forEach(System.out::println);
+    }
+}
+
+class Employee implements Comparable {
+    private String name;
+    private int age;
+    private MyDate birthday;
+
+    public Employee(String name, int age, MyDate birthday) {
+        this.name = name;
+        this.age = age;
+        this.birthday = birthday;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public MyDate getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(MyDate birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " name='" + getName() + "'" + ", age='" + getAge() + "'" + ", birthday='" + getBirthday() + "'"
+                + "}";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof Employee) {
+            Employee e =(Employee) o;
+            return getName().compareTo(e.getName());
+        } else
+           //return 0也可以
+            throw new ClassCastException();
+    }
+}
+
+class MyDate implements Comparable {
+    private int year, month, day;
+
+    public MyDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return this.day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " year='" + getYear() + "'" +
+            ", month='" + getMonth() + "'" +
+            ", day='" + getDay() + "'" +
+            "}";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof MyDate) {
+            MyDate b = (MyDate) o;
+            int compYear = ((Integer) getYear()).compareTo((Integer) (b.getYear()));
+            if (compYear != 0) {
+                return compYear;
+            } else {
+                int compMonth = ((Integer) getMonth()).compareTo((Integer) (b.getMonth()));
+                if (compMonth != 0)
+                return compMonth;
+                else {
+                    int compDay = ((Integer) getDay()).compareTo((Integer) (b.getDay()));
+                        return compDay;
+                }
+            }
+        } else
+            throw new ClassCastException();
     }
 }
