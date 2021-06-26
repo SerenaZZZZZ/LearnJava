@@ -1,5 +1,14 @@
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.Instant;
@@ -185,6 +194,149 @@ public class JUnitTest {
             file1.delete();
             System.out.println("Successfully deleted");
         }
+    }
+
+    // 字符流读出写入
+    @Test
+    public void testFileReaderFileWriter() {
+        // 1.创建File类对象，指明文件
+        File srcFile = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello1.txt");
+        File destFile = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello2.txt");
+        // 2.创建输入输出流对象
+        // FileReader fr = null;
+        // FileWriter fw = null;
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+        try {
+            // fr = new FileReader(srcFile);
+            // fw = new FileWriter(destFile);// append = false
+            br = new BufferedReader(new FileReader(srcFile));
+            bw = new BufferedWriter(new FileWriter(destFile)); // append = false
+            // 3.数据的读入写出操作
+            // 方式一：
+            // char[] cbuf = new char[5];
+            // int len;
+            // while ((len = br.read(cbuf)) != -1) {
+            // bw.write(cbuf, 0, len);
+            // }
+            // 方式二：
+            String line;
+            while ((line = br.readLine()) != null) {
+                // 2.1
+                // bw.write(line + "\n");
+                // 2.2
+                bw.write(line);
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 4.关闭流资源
+            try {
+                fw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testCopyFile() {
+        long start = System.currentTimeMillis();
+        String srcPath = "/Users/zhangxiangyu/Documents/io/How do CRCs work.mp4";
+        String destPath = "/Users/zhangxiangyu/Documents/io/a.mp4";
+        copyFile(srcPath, destPath);
+        long end = System.currentTimeMillis();
+        System.out.println("time: " + (end - start));// 1253ms
+    }
+
+    // 字节流 buffered
+    public void copyFile(String srcPath, String destPath) {
+        // FileInputStream fis = null;
+        // FileOutputStream fos = null;
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+            // FileInputStream fis = new FileInputStream(new File(srcPath));
+            // FileOutputStream fos = new FileOutputStream(new File(destPath));
+            // 甚至可以这样 它会自动把path包成file
+            FileInputStream fis = new FileInputStream(srcPath);
+            FileOutputStream fos = new FileOutputStream(destPath);
+            // 用缓冲流再包一层 提升速度
+            bis = new BufferedInputStream(fis);
+            bos = new BufferedOutputStream(fos);
+            byte[] buffer = new byte[1024];
+            int len;
+            // while ((len = fis.read(buffer)) != -1) {
+            // fos.write(buffer, 0, len);
+            // }
+            while ((len = bis.read(buffer)) != -1) {
+                bos.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bis.close();
+                // 外面的流会自动帮我们把里面的close
+                // fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bos.close();
+                // 外面的流会自动帮我们把里面的close
+                // fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void secretTest(){
+        String srcPath = "/Users/zhangxiangyu/Documents/io/How do CRCs work.mp4";
+        String secretPath = "/Users/zhangxiangyu/Documents/io/secret.mp4";
+        String desecretPath = "/Users/zhangxiangyu/Documents/io/desecret.mp4";
+        secret(srcPath, secretPath);
+        secret(secretPath, desecretPath);
+    }
+
+    public void secret(String srcPath, String destPath) {
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(new FileInputStream(srcPath));
+            bos = new BufferedOutputStream(new FileOutputStream(destPath));
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = bis.read(buffer)) != -1) {
+                for (int i = 0; i < buffer.length; i++) {
+                    buffer[i] = (byte) (buffer[i] ^ 5);
+                }
+                bos.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
 
