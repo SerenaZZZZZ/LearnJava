@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch genericExer",
+            "request": "launch",
+            "mainClass": "genericExer",
+            "projectName": "LearnJava_7e0043f1"
+        },
+        {
+            "type": "java",
             "name": "Launch TreeSetExer",
             "request": "launch",
             "mainClass": "TreeSetExer",

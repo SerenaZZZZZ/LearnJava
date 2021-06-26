@@ -1,27 +1,25 @@
-import java.util.Scanner;
-import java.util.TreeSet;
-import java.util.Vector;
 import java.lang.Thread.State;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.TreeSet;
+import java.util.Vector;
 
 class ScannerTest {
     public static void main(String[] args) {
@@ -1205,11 +1203,12 @@ class Employee implements Comparable {
 
     @Override
     public int compareTo(Object o) {
+        // 没指明泛型时：
         if (o instanceof Employee) {
-            Employee e =(Employee) o;
+            Employee e = (Employee) o;
             return getName().compareTo(e.getName());
         } else
-           //return 0也可以
+            // return 0也可以
             throw new ClassCastException();
     }
 }
@@ -1249,11 +1248,7 @@ class MyDate implements Comparable {
 
     @Override
     public String toString() {
-        return "{" +
-            " year='" + getYear() + "'" +
-            ", month='" + getMonth() + "'" +
-            ", day='" + getDay() + "'" +
-            "}";
+        return "{" + " year='" + getYear() + "'" + ", month='" + getMonth() + "'" + ", day='" + getDay() + "'" + "}";
     }
 
     @Override
@@ -1266,13 +1261,126 @@ class MyDate implements Comparable {
             } else {
                 int compMonth = ((Integer) getMonth()).compareTo((Integer) (b.getMonth()));
                 if (compMonth != 0)
-                return compMonth;
+                    return compMonth;
                 else {
                     int compDay = ((Integer) getDay()).compareTo((Integer) (b.getDay()));
-                        return compDay;
+                    return compDay;
                 }
             }
         } else
             throw new ClassCastException();
     }
+}
+
+/**
+ *
+ * @Description Generic泛型小练习
+ * @author xiangxiang Email: lingzhoufusang@gmail.com
+ * @version v1.0
+ * @CreateDate Jun 25, 2021 2:50:34 PM
+ *
+ */
+class genericExer {
+    public static void main(String[] args) {
+        DAO<User> dao = new DAO<>();
+        dao.save("001", new User(001, 18, "Tom"));
+        dao.save("002", new User(002, 20, "Jack"));
+        dao.save("003", new User(003, 17, "Jerry"));
+        dao.save("004", new User(004, 18, "Rose"));
+        System.out.println(dao.get("003").toString());
+        dao.update("007", new User(007, 17, "Jerryupdate"));
+        dao.update("003", new User(003, 17, "Jerryupdate"));
+        dao.list().forEach(System.out::println);
+        dao.delete("004");
+        System.out.println(dao.map);
+    }
+}
+
+class DAO<T> {
+    Map<String, T> map = new HashMap<>();
+
+    public void save(String id, T entity) {
+        map.put(id, entity);
+    }
+
+    public T get(String id) {
+        return map.get(id);
+    }
+
+    public void update(String id, T entity) {
+        // map.put(id, entity); 如果key没找到就直接加上去了
+        // 方法一
+        // if(map.containsKey(id)){
+        // map.put(id, entity);
+        // }
+        // 方法二
+        map.replace(id, entity);
+    }
+
+    public List<T> list() {
+        ArrayList<T> arrayList = new ArrayList<>(map.values());
+        return arrayList;
+        // return (List<T>) map.values(); //错误 因为Collection>List,父类不能强转成子类
+    }
+
+    public void delete(String id) {
+        map.remove(id);
+    }
+}
+
+class User {
+    private int id, age;
+    private String name;
+
+    public User(int id, int age, String name) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + " id='" + getId() + "'" + ", age='" + getAge() + "'" + ", name='" + getName() + "'" + "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof User)) {
+            return false;
+        }
+        User user = (User) o;
+        return id == user.id && age == user.age && Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, age, name);
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
