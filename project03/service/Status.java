@@ -8,7 +8,6 @@ package project03.service;
  * @CreateDate 6/13/2021 7:37:44 PM
  *
  */
-@Deprecated
 // public class Status {
 //     private final String NAME;
 

@@ -3,6 +3,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,12 +11,18 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.Test;
 
@@ -50,7 +57,7 @@ public class JUnitTest {
         int num1 = 10;
         // Float f1 = new Float(12.3f); //不用new了
         Float f1 = 12.3f;
-        // Float s1 = "12.3f"; TODO:
+        // Float s1 = "12.3f";
         System.out.println(f1.toString());// 12.3
         System.out.println(f1);// 12.3
     }
@@ -60,6 +67,11 @@ public class JUnitTest {
         Order order = new Order();
         System.out.println(order.isMale);// false
         System.out.println(order.isFemale);// null
+    }
+
+    class Order {
+        boolean isMale;
+        Boolean isFemale;
     }
 
     // 包装类→基本数据类型
@@ -234,12 +246,14 @@ public class JUnitTest {
         } finally {
             // 4.关闭流资源
             try {
-                fw.close();
+                bw.close();
+                // fw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                fr.close();
+                br.close();
+                // fr.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -300,7 +314,7 @@ public class JUnitTest {
     }
 
     @Test
-    public void secretTest(){
+    public void secretTest() {
         String srcPath = "/Users/zhangxiangyu/Documents/io/How do CRCs work.mp4";
         String secretPath = "/Users/zhangxiangyu/Documents/io/secret.mp4";
         String desecretPath = "/Users/zhangxiangyu/Documents/io/desecret.mp4";
@@ -326,21 +340,89 @@ public class JUnitTest {
             e.printStackTrace();
         } finally {
             try {
-                bis.close();
+                if (bis != null)
+                    bis.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                bos.close();
+                if (bos != null)
+                    bos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
-}
 
-class Order {
-    boolean isMale;
-    Boolean isFemale;
+    // 转换流
+    @Test
+    public void transferTest() throws Exception {
+        File file1 = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello1.txt");
+        File file2 = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello_gdk.txt");
+
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(file1), "utf-8");
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file2), "gbk");
+
+        char[] cbuf = new char[20];
+        int len;
+        while ((len = isr.read(cbuf)) != -1) {
+            osw.write(cbuf, 0, len);
+        }
+        isr.close();
+        osw.close();
+    }
+
+    // 输入输出流
+    @Test
+    public void test10() {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                System.out.println("please enter: ");
+                String line = br.readLine();
+                if ("e".equalsIgnoreCase(line) || "exit".equalsIgnoreCase(line)) {
+                    System.out.println("END");
+                    break;
+                }
+                System.out.println(line.toUpperCase());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // 用RandomAccessFile实现数据插入效果
+    @Test
+    public void test11() throws IOException {
+        RandomAccessFile raf = new RandomAccessFile("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello1.txt", "rw");
+        int pos = 3;
+        // read
+        raf.seek(pos);
+        int size = (int) raf.length();
+        byte[] buffer = new byte[20];
+        //StringBuilder builder = new StringBuilder(size);
+        ByteArrayOutputStream reader = new ByteArrayOutputStream();
+        System.out.println(size);
+        int len;
+        while ((len = raf.read(buffer)) != -1) {
+            //builder.append(new String(buffer, 0, len));
+            reader.write(buffer, 0, len);
+        }
+        // write
+        raf.seek(pos);
+        raf.write("xyz".getBytes());
+        // raf.write(builder.toString().getBytes());
+        raf.write(reader.toByteArray());
+        raf.close();
+    }
+
 }
