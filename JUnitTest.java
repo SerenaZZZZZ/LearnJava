@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -14,25 +13,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import org.junit.Test;
 
 /**
- *
- * @Description JUnit测试
  * @author xiangxiang Email: lingzhoufusang@gmail.com
  * @version v1.0
+ * @Description JUnit测试
  * @CreateDate 6/7/2021 10:26:33 AM
- *
  */
 public class JUnitTest {
     int num = 10;
@@ -313,6 +307,7 @@ public class JUnitTest {
         }
     }
 
+    //文件加密解密
     @Test
     public void secretTest() {
         String srcPath = "/Users/zhangxiangyu/Documents/io/How do CRCs work.mp4";
@@ -356,7 +351,7 @@ public class JUnitTest {
 
     // 转换流
     @Test
-    public void transferTest() throws Exception {
+    public void transferTest() throws Exception { //记得处理 这里在偷懒
         File file1 = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello1.txt");
         File file2 = new File("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello_gdk.txt");
 
@@ -372,7 +367,7 @@ public class JUnitTest {
         osw.close();
     }
 
-    // 输入输出流
+    // 用System.in输入 e/exit结束
     @Test
     public void test10() {
         BufferedReader br = null;
@@ -403,18 +398,18 @@ public class JUnitTest {
     // 用RandomAccessFile实现数据插入效果
     @Test
     public void test11() throws IOException {
-        RandomAccessFile raf = new RandomAccessFile("/Users/zhangxiangyu/Documents/GitHub/LearnJava/hello1.txt", "rw");
+        RandomAccessFile raf = new RandomAccessFile("hello1.txt", "rw");
         int pos = 3;
         // read
         raf.seek(pos);
         int size = (int) raf.length();
         byte[] buffer = new byte[20];
-        //StringBuilder builder = new StringBuilder(size);
+        // StringBuilder builder = new StringBuilder(size);
         ByteArrayOutputStream reader = new ByteArrayOutputStream();
         System.out.println(size);
         int len;
         while ((len = raf.read(buffer)) != -1) {
-            //builder.append(new String(buffer, 0, len));
+            // builder.append(new String(buffer, 0, len));
             reader.write(buffer, 0, len);
         }
         // write
@@ -424,5 +419,17 @@ public class JUnitTest {
         raf.write(reader.toByteArray());
         raf.close();
     }
+
+    @Test
+    public void InetAddressTest() throws UnknownHostException {
+        InetAddress inet = InetAddress.getByName("127.0.0.1");
+        System.out.println(inet);
+        InetAddress inet1 = InetAddress.getLocalHost();
+        System.out.println(inet1);
+        System.out.println(inet1.getHostName() + '\\' + inet1.getHostAddress());
+        InetAddress inet2 = InetAddress.getByName("localhost");
+        System.out.println(inet2);
+    }
+
 
 }
