@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/Users/zhangxiangyu/Documents/GitHub/LearnJava/**/*.jar",
-        "/Library/Java/Extensions/hamcrest-core-1.3.jar",
-        "/Library/Java/Extensions/junit-4.13.2.jar"
-    ]
-}
