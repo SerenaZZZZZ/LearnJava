@@ -422,14 +422,14 @@ public class JUnitTest {
         String s = "";
         char[] c = s.toCharArray();
         //int[] a = {-5,-4,2,0,1,-1,-4};
-        int[] a = new int[] {2,1,0};
-        Set set = new HashSet();
-
-        Map map = new HashMap();
+        int[] a = new int[]{2, 1, 0};
+        Set<Integer> set = new HashSet();
+        int[] abb = new int[1];
         List<Integer> container = new ArrayList<Integer>(a.length);
-        for (int i: a) container.add(i);
+        for (int i : a) container.add(i);
         Collections.sort(container);
         Arrays.sort(a);
         System.out.println(container.get(2));
+
     }
 }

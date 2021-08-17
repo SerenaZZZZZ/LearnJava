@@ -1,6 +1,6 @@
 package linkedlist;
 
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author xiangxiang

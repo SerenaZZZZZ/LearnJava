@@ -6,13 +6,14 @@ package linkedlist;
  */
 public class Josephu {
     public static void main(String[] args) {
-        int k = 5;//k children
+        int n = 5;//k children
         int m = 2;//per m child go out the circle
         CircleSingleLinkedList childList = new CircleSingleLinkedList();
-        childList.addNChild(k);
+        childList.addNChild(n);
         childList.showList();
+
         int count = 1;
-        Child prev = childList.getLast();//1345
+        Child prev = childList.getLast();
         Child cur = childList.getFirst();
         while (cur!=prev) {
             if (count % m == 0) {
@@ -25,7 +26,7 @@ public class Josephu {
             }
             count++;
         }
-        //System.out.println(temp.getId());
+        System.out.println(cur.getId());
     }
 }
 
